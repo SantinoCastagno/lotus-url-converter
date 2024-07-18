@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	_ "github.com/lib/pq"
 )
 
 func connectDB() (*sql.DB, error) {
-	connStr := "user=myuser password=mypassword dbname=mydatabase sslmode=disable"
+	connStr := "host=localhost port=5431 user=myuser password=mypassword dbname=mydatabase sslmode=disable"
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
@@ -19,7 +21,7 @@ func connectDB() (*sql.DB, error) {
 
 	// Pool of connections configuration
 	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(5)
+	db.SetMaxIdleConns(10)
 	db.SetConnMaxLifetime(time.Minute * 5)
 
 	// Ping to the database
@@ -34,7 +36,8 @@ func connectDB() (*sql.DB, error) {
 }
 
 func main() {
-	//db, _ := connectDB()
-
+	connectDB()
+	//db, _ :=
+	//SetupRoutes(db)
 	http.ListenAndServe(":8090", nil)
 }
