@@ -7,6 +7,8 @@ import (
 	"time"
 
 	_ "github.com/lib/pq"
+
+	"github.com/SantinoCastagno/lotus-url-converter/routes"
 )
 
 func connectDB() (*sql.DB, error) {
@@ -21,7 +23,7 @@ func connectDB() (*sql.DB, error) {
 
 	// Pool of connections configuration
 	db.SetMaxOpenConns(10)
-	db.SetMaxIdleConns(10)
+	db.SetMaxIdleConns(8)
 	db.SetConnMaxLifetime(time.Minute * 5)
 
 	// Ping to the database
@@ -36,8 +38,7 @@ func connectDB() (*sql.DB, error) {
 }
 
 func main() {
-	connectDB()
-	//db, _ :=
-	//SetupRoutes(db)
+	db, _ := connectDB()
+	routes.SetupRoutes(db)
 	http.ListenAndServe(":8090", nil)
 }

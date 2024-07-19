@@ -12,6 +12,6 @@ func SetupRoutes(db *sql.DB) {
 	env := &handlers.Env{Db: db}
 
 	http.HandleFunc("/generate-translation", env.GenerateTranslation)
-	http.HandleFunc("/get-translation", env.GetTranslation)
+	//http.HandleFunc("/get-translation", env.GetTranslation)
 	//http.HandleFunc("/post-translation", postTranslation)
 }
