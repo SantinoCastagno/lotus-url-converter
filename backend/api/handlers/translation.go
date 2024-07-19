@@ -43,29 +43,18 @@ func (e *Env) GenerateTranslation(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-func (e *Env) CreateTranslation(w http.ResponseWriter, r *http.Request) {
-	var _ models.Translation
-	if r.Method != http.MethodPost {
+func (e *Env) GetTranslations(w http.ResponseWriter, r *http.Request) {
+	var translations []models.Translation
+	if r.Method != http.MethodGet {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	source := r.URL.Query().Get("source")
-	fmt.Fprintf(w, "Source: %s!", source)
+	//TODO: Continue from here
 
-	//_, err := e.Db.Exec()
-
-	// TODO: Get data from the db
+	// generate response and return answer
+	response := map[string]string{"msg": "New translation has been added to database."}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }
-
-// func (e *Env) GetTranslation(w http.ResponseWriter, r *http.Request) {
-// 	var result []models.Translation
-// 	if r.Method == http.MethodGet {
-// 		source := r.URL.Query().Get("source")
-// 		fmt.Fprintf(w, "Source: %s!", source)
-
-// 		// TODO: Get data from the db
-// 	} else {
-// 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-// 	}
-// }
