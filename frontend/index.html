@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotus URL converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+</head>
+<!-- 
+    text-blue-400, bg-blue-400, border-blue-400
+    text-black, bg-black, border-black
+    text-gray-900, bg-gray-900, border-gray-900
+    text-green-400, bg-green-400, border-green-400
+    text-gray-200, bg-gray-200, border-gray-200 
+-->
+<body class="bg-gray-200 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Lotus URL converter</h1>
+        <form id="shorten-form" hx-post="/generate-translation" hx-target="#result" hx-swap="outerHTML">
+            <div class="p-4" >
+                <label for="url" class="block text-gray-700">Enter URL</label>
+                <input type="url" id="url" name="url" class="mt-1 block w-full p-2 border border-gray-900 rounded" required>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="bg-green-400 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+                    Shorten URL
+                </button>
+            </div>
+        </form>
+        <div id="result" class="m-4"></div>
+    </div>
+</body>
+
+</html>
