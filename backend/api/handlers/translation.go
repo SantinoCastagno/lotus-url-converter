@@ -69,11 +69,12 @@ func (e *Env) GenerateTranslation(w http.ResponseWriter, r *http.Request) {
 }
 
 func (e *Env) GetTranslations(w http.ResponseWriter, r *http.Request) {
-	log.Debug().Msg("Llegada de solicitud GetTranslation.")
+	log.Debug().Msg("Llegada de solicitud GetTranslations.")
 	if r.Method != http.MethodGet {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
+	log.Debug().Msg("Metodo GET verificado.")
 
 	rows, err := e.Db.Query("SELECT id, source, destination FROM translations")
 	if err != nil {
@@ -81,11 +82,12 @@ func (e *Env) GetTranslations(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer rows.Close()
+	log.Debug().Msg("Consulta a la base de datos ejecutada.")
 
 	var translations []models.Translation
 	for rows.Next() {
 		var translation models.Translation
-		err := rows.Scan(&translation.ID, &translation.Source, &translation.Destionation)
+		err := rows.Scan(&translation.ID, &translation.Source, &translation.Destination)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -101,6 +103,7 @@ func (e *Env) GetTranslations(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(translations)
+	log.Info().Msg("Funcion GetTranslations finalizada correctamente.")
 }
 
 func (e *Env) GetTranslation(w http.ResponseWriter, r *http.Request) {
@@ -116,7 +119,7 @@ func (e *Env) GetTranslation(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var translation models.Translation
-	err := e.Db.QueryRow("SELECT id, source, destination FROM translations WHERE source = $1", translation.Source).Scan(&translation.ID, &translation.Source, &translation.Destionation)
+	err := e.Db.QueryRow("SELECT id, source, destination FROM translations WHERE source = $1", translation.Source).Scan(&translation.ID, &translation.Source, &translation.Destination)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			http.Error(w, "Translation not found", http.StatusNotFound)

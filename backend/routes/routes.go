@@ -10,12 +10,10 @@ import (
 func SetupRoutes(db *sql.DB) http.Handler {
 	// define a pointer to centralizing connection handling to the database
 	env := &handlers.Env{Db: db}
-
 	mux := http.NewServeMux()
-	http.HandleFunc("/generate-translation", env.GenerateTranslation)
-	http.HandleFunc("/get-translation", env.GetTranslation)
-	http.HandleFunc("/get-translations", env.GetTranslations)
-	wrappedMux := handlers.CorsMiddleware(mux)
-
-	return wrappedMux
+	mux.HandleFunc("/generate-translation", env.GenerateTranslation)
+	mux.HandleFunc("/get-translation", env.GetTranslation)
+	mux.HandleFunc("/get-translations", env.GetTranslations)
+	corsMux := handlers.CorsMiddleware(mux)
+	return corsMux
 }

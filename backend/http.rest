@@ -8,7 +8,7 @@ Content-Length: 46
     "source": "source asd"
 }
 ###
-GET /get-translations HTTP/1.1
+GET /get-translation HTTP/1.1
 Host: localhost:8090
 Content-Type: application/json
 Content-Length: 46
@@ -21,7 +21,3 @@ GET /get-translations HTTP/1.1
 Host: localhost:8090
 Content-Type: application/json
 Content-Length: 46
-
-{
-    "source": "source asd"
-}
