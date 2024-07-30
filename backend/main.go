@@ -7,6 +7,7 @@ import (
 	"time"
 
 	_ "github.com/lib/pq"
+	"github.com/rs/zerolog/log"
 
 	"github.com/SantinoCastagno/lotus-url-converter/routes"
 )
@@ -33,12 +34,12 @@ func connectDB() (*sql.DB, error) {
 		return nil, err
 	}
 
-	fmt.Println("Conexión exitosa a la base de datos.")
+	log.Info().Msg("Conexión exitosa a la base de datos.")
 	return db, nil
 }
 
 func main() {
 	db, _ := connectDB()
-	routes.SetupRoutes(db)
-	http.ListenAndServe(":8090", nil)
+	wrappedMux := routes.SetupRoutes(db)
+	http.ListenAndServe(":8090", wrappedMux)
 }
