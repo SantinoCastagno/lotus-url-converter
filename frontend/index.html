@@ -18,10 +18,10 @@
 -->
 
 <body class="bg-gray-200 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-10 m-10 rounded shadow-md w-full max-w-md">
+    <div class="bg-white px-4 py-2 m-10 rounded shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold m-4 text-center">Lotus URL converter</h1>
         <form id="shorten-form">
-            <div class="p-4 mt-8 mb-8">
+            <div class="p-4 m-8 mb-8">
                 <label for="url" class="block text-gray-700">Enter URL</label>
                 <input type="url" id="source" name="source" class="mt-1 block w-full p-2 border border-gray-900 rounded"
                     required>
@@ -35,48 +35,16 @@
         <div id="result" class="m-4"></div>
     </div>
 
-    <div class="container">
+    <div class="container bg-white p-10 m-10 rounded shadow-md">
         <h1 class="text-2xl font-bold mb-4">Prev URL's</h1>
-        <table id="data-table" class="bg-white border border-gray-300">
+        <table id="data-table" class="bg-white border w-full border-gray-300">
             <thead>
                 <tr>
-                    <th class="py-2 px-4 bg-gray-200 border-b">Columna 1</th>
-                    <th class="py-2 px-4 bg-gray-200 border-b">Columna 2</th>
+                    <th class="py-2 px-4 bg-gray-200 border-b">Source</th>
+                    <th class="py-2 px-4 bg-gray-200 border-b">Destination</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr>
-                    <td class="py-2 px-4 border-b">Dato 1</td>
-                    <td class="py-2 px-4 border-b">Dato 2</td>
-                </tr>
-                <tr class="bg-gray-100">
-                    <td class="py-2 px-4 border-b">Dato 3</td>
-                    <td class="py-2 px-4 border-b">Dato 4</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-4 border-b">Dato 5</td>
-                    <td class="py-2 px-4 border-b">Dato 6</td>
-                </tr>
-                <tr class="bg-gray-100">
-                    <td class="py-2 px-4 border-b">Dato 7</td>
-                    <td class="py-2 px-4 border-b">Dato 8</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-4 border-b">Dato 1</td>
-                    <td class="py-2 px-4 border-b">Dato 2</td>
-                </tr>
-                <tr class="bg-gray-100">
-                    <td class="py-2 px-4 border-b">Dato 3</td>
-                    <td class="py-2 px-4 border-b">Dato 4</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-4 border-b">Dato 5</td>
-                    <td class="py-2 px-4 border-b">Dato 6</td>
-                </tr>
-                <tr class="bg-gray-100">
-                    <td class="py-2 px-4 border-b">Dato 7</td>
-                    <td class="py-2 px-4 border-b">Dato 8</td>
-                </tr> -->
             </tbody>
         </table>
     </div>
