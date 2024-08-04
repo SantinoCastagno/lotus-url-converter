@@ -34,7 +34,7 @@ func CorsMiddleware(next http.Handler) http.Handler {
 }
 
 func (e *Env) GenerateTranslation(w http.ResponseWriter, r *http.Request) {
-	log.Info().Msg("Inicio de ejecucion de GenerateTranslation().")
+	log.Info().Msg("Llegada de solicitud GenerateTranslation.")
 	if r.Method != http.MethodPost {
 		log.Debug().Msg("El metodo HTTP no es POST.")
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)

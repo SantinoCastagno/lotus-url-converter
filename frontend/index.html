@@ -20,7 +20,7 @@
 <body class="bg-gray-200 flex items-center justify-center min-h-screen">
     <div class="bg-white px-4 py-2 m-10 rounded shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold m-4 text-center">Lotus URL converter</h1>
-        <form id="shorten-form">
+        <form id="shortenForm">
             <div class="p-4 m-8 mb-8">
                 <label for="url" class="block text-gray-700">Enter URL</label>
                 <input type="url" id="source" name="source" class="mt-1 block w-full p-2 border border-gray-900 rounded"
@@ -36,7 +36,7 @@
     </div>
 
     <div class="container bg-white p-10 m-10 rounded shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Prev URL's</h1>
+        <h1 class="text-2xl font-bold mb-4">Prev. URL's</h1>
         <table id="data-table" class="bg-white border w-full border-gray-300">
             <thead>
                 <tr>
@@ -50,4 +50,19 @@
     </div>
 </body>
 
+
+
+<!-- <script>
+    shortenForm.onsubmit = async (e) => {
+        console.log("Metodo onsubmit ejecutado.")
+        e.preventDefault();
+        let response = await fetch('http://localhost:8090/generate-translation', {
+            method: 'POST',
+            body: new FormData(shortenForm)
+        });
+        let result = await response.json();
+        alert(result.message);
+        console.log("Metodo onsubmit finalizado.")
+    };
+</script> -->
 </html>
