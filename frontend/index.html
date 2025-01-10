@@ -2,67 +2,84 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotus URL converter</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/htmx.org@1.6.1"></script>
-    <script src="app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotus URL converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 </head>
-<!-- 
-    text-blue-400, bg-blue-400, border-blue-400
-    text-black, bg-black, border-black
-    text-gray-900, bg-gray-900, border-gray-900
-    text-green-400, bg-green-400, border-green-400
-    text-gray-200, bg-gray-200, border-gray-200 
--->
 
 <body class="bg-gray-200 flex items-center justify-center min-h-screen">
-    <div class="bg-white px-4 py-2 m-10 rounded shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold m-4 text-center">Lotus URL converter</h1>
-        <form id="shortenForm">
-            <div class="p-4 m-8 mb-8">
-                <label for="url" class="block text-gray-700">Enter URL</label>
-                <input type="url" id="source" name="source" class="mt-1 block w-full p-2 border border-gray-900 rounded"
-                    required>
-            </div>
-            <div class="flex justify-center">
-                <button type="submit" class="bg-green-400 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
-                    Converter URL
-                </button>
-            </div>
-        </form>
-        <div id="result" class="m-4"></div>
-    </div>
+  <div class="bg-white px-4 py-2 m-10 rounded shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold m-4 text-center">Lotus URL converter</h1>
+    <form id="shortenForm">
+      <div class="p-4 m-8 mb-8">
+        <label for="url" class="block text-gray-700">Enter URL</label>
+        <input type="url" id="source" name="source" class="mt-1 block w-full p-2 border border-gray-900 rounded" required>
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="bg-green-400 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+          Converter URL
+        </button>
+      </div>
+    </form>
+    <div id="result" class="m-4"></div>
+  </div>
 
-    <div class="container bg-white p-10 m-10 rounded shadow-md">
-        <h1 class="text-2xl font-bold mb-4">Prev. URL's</h1>
-        <table id="data-table" class="bg-white border w-full border-gray-300">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 bg-gray-200 border-b">Source</th>
-                    <th class="py-2 px-4 bg-gray-200 border-b">Destination</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+  <div class="container bg-white p-10 m-10 rounded shadow-md">
+    <h1 class="text-2xl font-bold mb-4">Prev. URL's</h1>
+    <table id="data-table" class="bg-white border w-full border-gray-300">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 bg-gray-200 border-b">Source</th>
+          <th class="py-2 px-4 bg-gray-200 border-b">Destination</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 </body>
 
-
-
-<!-- <script>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
     shortenForm.onsubmit = async (e) => {
-        console.log("Metodo onsubmit ejecutado.")
+      try {
+        console.log("Metodo 'onsubmit' ejecutado.")
         e.preventDefault();
         let response = await fetch('http://localhost:8090/generate-translation', {
-            method: 'POST',
-            body: new FormData(shortenForm)
+          method: 'POST',
+          body: new FormData(shortenForm)
         });
-        let result = await response.json();
-        alert(result.message);
-        console.log("Metodo onsubmit finalizado.")
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        // Verificar si la inserción fue exitosa
+        if (result.success) {
+          // Agregar una nueva fila a la tabla
+          const table = document.getElementById("data-table").getElementsByTagName("tbody")[0];
+          const newRow = table.insertRow();
+
+          const cell1 = newRow.insertCell(0);
+          const cell2 = newRow.insertCell(1);
+
+          cell1.textContent = source;
+          cell2.textContent = destination;
+
+          alert("¡Datos insertados con éxito!");
+        } else {
+          alert("Error al insertar los datos: " + result.message);
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+        alert("Ocurrió un error al intentar insertar los datos.");
+      }
+
     };
-</script> -->
+  })
+</script>
+
 </html>
