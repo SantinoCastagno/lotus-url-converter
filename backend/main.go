@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Pallinder/go-randomdata"
 	_ "github.com/lib/pq"
 	"github.com/rs/zerolog/log"
 
@@ -39,7 +40,14 @@ func connectDB() (*sql.DB, error) {
 }
 
 func main() {
+
+	// library testing
+	for i := 0; i < 3; i++ {
+		fmt.Println(randomdata.SillyName())
+	}
+
 	db, _ := connectDB()
 	wrappedMux := routes.SetupRoutes(db)
 	http.ListenAndServe(":8090", wrappedMux)
+
 }

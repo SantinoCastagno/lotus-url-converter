@@ -40,27 +40,19 @@ func (e *Env) GenerateTranslation(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
-
 	source := r.FormValue("source")
 	if source == "" {
 		log.Debug().Msg("No contiene el parametro .")
 		http.Error(w, "Source is required", http.StatusBadRequest)
 		return
 	}
-
-	// var translation models.Translation
-	// decoder := json.NewDecoder(r.Body)
-	// err := decoder.Decode(&translation)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
 	_, err := e.Db.Exec("INSERT INTO translations (source, destination) VALUES ($1, $2)", source, "example-example-example")
 	if err != nil {
-		fmt.Println("DEBUG: 4")
+		log.Error().Msg("DEBUG: 4")
 		fmt.Println("Error al insertar datos:", err)
 		return
 	}
+	log.Info().Msg("Llegada de solicitud GenerateTranslation 4.")
 	// generate response and return answer
 	response := map[string]string{"msg": "New translation has been added to database."}
 	w.Header().Set("Content-Type", "application/json")
