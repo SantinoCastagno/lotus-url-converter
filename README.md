@@ -12,6 +12,11 @@ Test database connection with psql
 psql -h localhost -U myuser -d mydatabase -W -p 5431 # then put 'mypassword'
 ```
 
+```sql
+SELECT * FROM translations;
+REMOVE FROM translations;
+```
+
 Stop docker container execution
 ```bash
 docker compose down --volumes
